@@ -14,8 +14,8 @@ export class ApiService {
   ) { }
 
 
-  async save(key: string, livros: any) {
-    return await localStorage.setItem(key, livros);
+  async save(key: string, questionario: any) {
+    return await localStorage.setItem(key, questionario);
   }
 
   async presentToast(msg, cl) {
