@@ -19,4 +19,8 @@ export class Tab2Page {
   abrirQuestionario(id: string) {
     this.router.navigate(['/questao', id]);
   }
+
+  respostasQuestionario(id: string) {
+    this.router.navigate(['/resposta', id]);
+  }
 }

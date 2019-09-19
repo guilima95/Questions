@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-questao',
-  templateUrl: './questao.component.html',
-  styleUrls: ['./questao.component.scss'],
+  selector: 'app-resposta',
+  templateUrl: './resposta.component.html',
+  styleUrls: ['./resposta.component.scss'],
 })
-export class QuestaoComponent implements OnInit {
+export class RespostaComponent implements OnInit {
   argumentos = null;
 
   constructor(private navCtrl: NavController, private api: ApiService, private route: ActivatedRoute, private router: Router) { }
@@ -25,15 +25,6 @@ export class QuestaoComponent implements OnInit {
     }
   }
 
-
-
-  private salvandoRespostas(key: string, questionario: string) {
-    this.api.save(key, questionario).then((res) => {
-      console.log('');
-    }).catch((err) => {
-      console.log('');
-    });
-  }
 
 
   private recuperarQuestionario(key: string) {
