@@ -12,6 +12,10 @@ export class QuestionService {
     private ojbQuizArray: Array<QuizModel>;    
     private dictionary: {[index: string]: string} = {};
 
+    //#region Titles
+    private ttlMarcosDesenv: string = "Marcos do Desevnvolvimento."
+    //#endregion
+
     private readonly MARCO_DESENVOLVIMENTO: string = "MARCO_DESENVOLVIMENTO";
     private readonly SINTOMAS_BEBE: string = "SINTOMAS_BEBE";
 
@@ -21,11 +25,28 @@ export class QuestionService {
 
     private twoMonthIssues(): Array<QuizModel>{
         let quizArray: Array<QuizModel>;
-        let quiz = this.objQuiz;
 
+        let quiz = this.objQuiz;
+        quiz.quizAnswered = false;
+        quiz.quizId = 1;
+        quiz.quizName = "2 Meses.";
+
+        //#region QuestionOne
         let questionOne = this.objQuestion;
         questionOne.questionId = 1;
         questionOne.questionDescription = this.dictionary[this.MARCO_DESENVOLVIMENTO];
+        questionOne.questionTitle = this.ttlMarcosDesenv;
+        questionOne.questionAnswered = false;
+        questionOne.quiz = quiz;
+        quiz.questions.push(questionOne);
+
+        let answerQuestionOne = this.objAnswer;
+        answerQuestionOne.answerId = 1;
+        answerQuestionOne.answerName = "";
+        answerQuestionOne.answerSelected = false;
+        answerQuestionOne.question = questionOne;
+        questionOne.answers.push(answerQuestionOne);
+        //#endregion
 
         return quizArray;
     }
