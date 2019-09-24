@@ -23,13 +23,9 @@ export class QuestionService {
         return this.ojbQuizArray;
     }
 
-    private twoMonthIssues(): Array<QuizModel>{
-        let quizArray: Array<QuizModel>;
-
-        let quiz = this.objQuiz;
-        quiz.quizAnswered = false;
-        quiz.quizId = 1;
-        quiz.quizName = "2 Meses.";
+    private twoMonthIssues(quiz: QuizModel): Array<QuestionModel>{
+        let questionArray: Array<QuestionModel>;
+        let quizTwo = this.objQuiz;        
 
         //#region QuestionOne
         let questionOne = this.objQuestion;
@@ -38,7 +34,6 @@ export class QuestionService {
         questionOne.questionTitle = this.ttlMarcosDesenv;
         questionOne.questionAnswered = false;
         questionOne.quiz = quiz;
-        quiz.questions.push(questionOne);
 
         let answerQuestionOne = this.objAnswer;
         answerQuestionOne.answerId = 1;
@@ -48,7 +43,7 @@ export class QuestionService {
         questionOne.answers.push(answerQuestionOne);
         //#endregion
 
-        return quizArray;
+        return questionArray;
     }
 
     private createDictionary(){

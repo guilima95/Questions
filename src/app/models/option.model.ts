@@ -33,6 +33,14 @@ export interface OptionModel{
     optionSelected: boolean;
 
     /**
+     * Option Score
+     * 
+     * @type {number}
+     * @memberof OptionModel
+     */
+    optionScore: number;
+
+    /**
      * Option answer
      * 
      * @type {AnswerModel}
