@@ -2,6 +2,7 @@ import {QuizModel} from '../app/models/quiz.model';
 import {QuestionModel} from '../app/models/question.model';
 import {AnswerModel} from '../app/models/answer.model';
 import {OptionModel} from '../app/models/option.model';
+import {AnswerService} from '../app/app-answer.service';
 
 export class QuestionService {
 
@@ -13,7 +14,8 @@ export class QuestionService {
     private dictionary: {[index: string]: string} = {};
 
     //#region Titles
-    private ttlMarcosDesenv: string = "Marcos do Desevnvolvimento."
+    private ttlMarcosDesenv: string = "Marcos do Desevnvolvimento.";
+    private ttlSintomasBebe: string = "Sintomas do Bebê.";
     //#endregion
 
     private readonly MARCO_DESENVOLVIMENTO: string = "MARCO_DESENVOLVIMENTO";
@@ -23,7 +25,7 @@ export class QuestionService {
         return this.ojbQuizArray;
     }
 
-    private twoMonthIssues(quiz: QuizModel): Array<QuestionModel>{
+    public twoMonthIssues(quiz: QuizModel): Array<QuestionModel>{
         let questionArray: Array<QuestionModel>;
         let quizTwo = this.objQuiz;        
 
@@ -42,6 +44,17 @@ export class QuestionService {
         answerQuestionOne.question = questionOne;
         questionOne.answers.push(answerQuestionOne);
         //#endregion
+
+        //#region QuestionTwo
+        let questionTwo = this.objQuestion;
+        questionTwo.questionId = 2;
+        questionTwo.questionDescription = this.dictionary[this.SINTOMAS_BEBE];
+        questionTwo.questionTitle = this.ttlSintomasBebe;
+        questionTwo.questionAnswered = false;
+        questionTwo.quiz = quiz;        
+        //#endregion
+        
+        questionArray.push(questionOne, questionTwo);
 
         return questionArray;
     }
