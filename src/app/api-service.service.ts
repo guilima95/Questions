@@ -1,5 +1,8 @@
 import { ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
+import { QuizService } from './app-quiz.service';
+import { QuizModel } from './models/quiz.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +11,8 @@ export class ApiService {
   KEY_QUESTIONARIOS = 'questionario-geral';
   KEY_QUESTIONARIOS_RESPONDIDOS = 'questionario-respondido';
   KEY_QUESTIONARIOS_RESPOSTAS = 'questionario-respostas';
+
+  public quizArray: Array<QuizModel>;
 
   // tslint:disable-next-line:max-line-length
   constructor(public toastController: ToastController, public alertController: AlertController, public loadingController: LoadingController
@@ -66,5 +71,11 @@ export class ApiService {
     });
 
     await alert.present();
+  }
+
+  async getQuizzes(){
+    let quizService = new QuizService();
+
+    return await quizService.GetQuizzes();
   }
 }

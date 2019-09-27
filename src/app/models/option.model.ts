@@ -14,7 +14,7 @@ export interface OptionModel{
      * @type {number}
      * @memberof OptionModel
      */
-    optionId: number;
+    id: number;
 
     /**
      * Option name
@@ -22,7 +22,7 @@ export interface OptionModel{
      * @type {string}
      * @memberof OptionModel
      */
-    optionName: string;
+    descricao: string;
 
     /**
      * Option name
@@ -30,7 +30,7 @@ export interface OptionModel{
      * @type {boolean}
      * @memberof OptionModel
      */
-    optionSelected: boolean;
+    selecionada: boolean;
 
     /**
      * Option Score
@@ -38,7 +38,7 @@ export interface OptionModel{
      * @type {number}
      * @memberof OptionModel
      */
-    optionScore: number;
+    score: number;
 
     /**
      * Option answer
@@ -46,5 +46,5 @@ export interface OptionModel{
      * @type {AnswerModel}
      * @memberof OptionModel
      */
-    answer: AnswerModel;
+    resposta: AnswerModel;
 }

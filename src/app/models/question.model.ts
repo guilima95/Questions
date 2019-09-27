@@ -15,7 +15,7 @@ export interface QuestionModel{
      * @type {number}
      * @memberof QuestionModel
      */
-    questionId: number;
+    id: number;
 
     /**
      * Question title
@@ -23,7 +23,7 @@ export interface QuestionModel{
      * @type {string}
      * @memberof QuestionModel
      */
-    questionTitle: string;
+    titulo: string;
 
     /**
      * Question description
@@ -31,7 +31,7 @@ export interface QuestionModel{
      * @type {string}
      * @memberof QuestionModel
      */
-    questionDescription: string;
+    descricao: string;
 
     /**
      * Question answered
@@ -39,7 +39,7 @@ export interface QuestionModel{
      * @type {boolean}
      * @memberof QuestionModel
      */
-    questionAnswered: boolean;
+    respondido: boolean;
 
     /**
      * Question quiz
@@ -47,7 +47,7 @@ export interface QuestionModel{
      * @type {QuizModel}
      * @memberof QuizModel
      */
-    quiz: QuizModel;
+    questionario: QuizModel;
 
     /**
      * Question answers
@@ -55,5 +55,5 @@ export interface QuestionModel{
      * @type {Array<AnswerModel>}
      * @memberof QuestionModel
      */
-    answers: Array<AnswerModel>;
+    respostas: Array<AnswerModel>;
 }

@@ -14,7 +14,7 @@ export interface QuizModel{
      * @type {string}
      * @memberof QuizModel
      */
-    quizId: number;
+    id: number;
 
     /**
      * Quiz name
@@ -22,7 +22,7 @@ export interface QuizModel{
      * @type {number}
      * @memberof QuizModel
      */
-    quizName: string;
+    nome: string;
 
     /**
      * Quiz answered
@@ -30,7 +30,7 @@ export interface QuizModel{
      * @type {boolean}
      * @memberof QuizModel
      */
-    quizAnswered: boolean;
+    respondido: boolean;
 
     /**
      * Quiz questions
@@ -38,5 +38,5 @@ export interface QuizModel{
      * @type {Array<QuestionModel>}
      * @memberof QuizModel
      */
-    questions: Array<QuestionModel>;
+    questoes: Array<QuestionModel>;
 }

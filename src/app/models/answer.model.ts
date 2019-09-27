@@ -15,7 +15,7 @@ export interface AnswerModel{
      * @type {number}
      * @memberof AnswerModel
      */
-    answerId: number;
+    id: number;
     
     /**
      * Answer name
@@ -23,7 +23,7 @@ export interface AnswerModel{
      * @type {string}
      * @memberof AnswerModel
      */
-    answerName: string;
+    descricao: string;
 
     /**
      * Answer selected
@@ -31,7 +31,7 @@ export interface AnswerModel{
      * @type {boolean}
      * @memberof AnswerModel
      */
-    answerSelected: boolean;
+    respondida: boolean;
 
     /**
      * Answer quetion
@@ -39,7 +39,7 @@ export interface AnswerModel{
      * @type {QuestionModel}
      * @memberof AnswerModel
      */
-    question: QuestionModel;
+    pergunta: QuestionModel;
 
     /**
      * Answer options
@@ -47,5 +47,5 @@ export interface AnswerModel{
      * @type {Array<OptionModel>}
      * @memberof AnswerModel
      */
-    options: Array<OptionModel>;
+    opcoes: Array<OptionModel>;
 }

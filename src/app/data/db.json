@@ -1,5 +1,5 @@
 {
-    "Quiz": [
+    "questionario": [
       {
         "id": 1,
         "nome": "2 Meses",
@@ -1176,7 +1176,7 @@
         ]
       },
       {
-        "Quiz": [
+        "questionario": [
           {
             "id": 2,
             "nome": "4 Meses",
@@ -2355,7 +2355,7 @@
         ]
       },
       {
-        "Quiz": [
+        "questionario": [
           {
             "id": 3,
             "nome": "6 Meses",
@@ -3534,7 +3534,7 @@
         ]
       },
       {
-        "Quiz": [
+        "questionario": [
           {
             "id": 4,
             "nome": "9 Meses",
@@ -4457,7 +4457,7 @@
         ]
       },
       {
-        "Quiz": [
+        "questionario": [
           {
             "id": 5,
             "nome": "12 Meses",
