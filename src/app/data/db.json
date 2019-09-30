@@ -1,10 +1,10 @@
 {
-    "questionario": [
-      {
-        "id": 1,
-        "nome": "2 Meses",
-        "respondido": false,
-        "questoes": [
+  "questionario": [
+    {
+      "id": 1,
+      "nome": "2 Meses",
+      "respondido": false,
+      "questoes": [
           {
             "id": 1,
             "descricao": "As perguntas a seguir são sobre o desenvolvimento de sua criança. Por favor, conte para nós o quanto sua criança faz cada uma destas coisas. Se sua criança já deixou de fazer alguma destas coisas, escolha a resposta que melhor descreve o quanto ele/ela costumava fazer isso antes. Por favor, verifique se respondeu TODAS as perguntas.",
@@ -1173,15 +1173,13 @@
               }
             ]
           }
-        ]
-      },
-      {
-        "questionario": [
-          {
-            "id": 2,
-            "nome": "4 Meses",
-            "respondido": false,
-            "questoes": [
+      ]
+    },
+    {
+        "id": 2,
+        "nome": "4 Meses",
+        "respondido": false,
+        "questoes": [
               {
                 "id": 1,
                 "descricao": "As perguntas a seguir são sobre o desenvolvimento de sua criança. Por favor, conte para nós o quanto sua criança faz cada uma destas coisas. Se sua criança já deixou de fazer alguma destas coisas, escolha a resposta que melhor descreve o quanto ele/ela costumava fazer isso antes. Por favor, verifique se respondeu TODAS as perguntas.",
@@ -2350,17 +2348,13 @@
                   }
                 ]
               }
-            ]
-          }
         ]
-      },
-      {
-        "questionario": [
-          {
-            "id": 3,
-            "nome": "6 Meses",
-            "respondido": false,
-            "questoes": [
+    },
+    {
+        "id": 3,
+        "nome": "6 Meses",
+        "respondido": false,
+        "questoes": [
               {
                 "id": 1,
                 "descricao": "As perguntas a seguir são sobre o desenvolvimento de sua criança. Por favor, conte para nós o quanto sua criança faz cada uma destas coisas. Se sua criança já deixou de fazer alguma destas coisas, escolha a resposta que melhor descreve o quanto ele/ela costumava fazer isso antes. Por favor, verifique se respondeu TODAS as perguntas.",
@@ -3529,17 +3523,13 @@
                   }
                 ]
               }
-            ]
-          }
         ]
-      },
-      {
-        "questionario": [
-          {
-            "id": 4,
-            "nome": "9 Meses",
-            "respondido": false,
-            "questoes": [
+    },
+    {
+        "id": 4,
+        "nome": "9 Meses",
+        "respondido": false,
+        "questoes": [
               {
                 "id": 1,
                 "descricao": "As perguntas a seguir são sobre o desenvolvimento de sua criança. Por favor, conte para nós o quanto sua criança faz cada uma destas coisas. Se sua criança já deixou de fazer alguma destas coisas, escolha a resposta que melhor descreve o quanto ele/ela costumava fazer isso antes. Por favor, verifique se respondeu TODAS as perguntas.",
@@ -4452,17 +4442,13 @@
                   }
                 ]
               }
-            ]
-          }
-        ]
-      },
-      {
-        "questionario": [
-          {
-            "id": 5,
-            "nome": "12 Meses",
-            "respondido": false,
-            "questoes": [
+        ]          
+    },
+    {
+        "id": 5,
+        "nome": "12 Meses",
+        "respondido": false,
+        "questoes": [
               {
                 "id": 1,
                 "descricao": "As perguntas a seguir são sobre o desenvolvimento de sua criança. Por favor, conte para nós o quanto sua criança faz cada uma destas coisas. Se sua criança já deixou de fazer alguma destas coisas, escolha a resposta que melhor descreve o quanto ele/ela costumava fazer isso antes. Por favor, verifique se respondeu TODAS as perguntas.",
@@ -5375,9 +5361,7 @@
                   }
                 ]
               }
-            ]
-          }
         ]
-      }
-    ]
-  }
+    }
+  ]
+}
