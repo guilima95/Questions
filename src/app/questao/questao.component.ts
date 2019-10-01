@@ -2,6 +2,8 @@ import { ApiService } from './../api-service.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { from } from 'rxjs';
+import { QuizService } from '../app-quiz.service';
 
 @Component({
   selector: 'app-questao',
@@ -10,8 +12,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class QuestaoComponent implements OnInit {
   argumentos = null;
+  public quizList: any;
 
-  constructor(private navCtrl: NavController, private api: ApiService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService, private route: ActivatedRoute, private router: Router) { }
 
   goBack() {
     this.argumentos = null;
@@ -22,10 +25,17 @@ export class QuestaoComponent implements OnInit {
     this.argumentos = this.route.snapshot.params.optional_id;
     if (this.argumentos != null) {
       this.recuperarQuestionario(this.argumentos);
+      this.listaQuiestionarios();
     }
   }
 
-
+  private async listaQuiestionarios(){
+    this.quizList = [];
+    this.apiQuiz.GetQuizzes().then((res)=>{
+      console.log(res);
+      this.quizList = res;
+    });
+  }
 
   private salvandoRespostas(key: string, questionario: string) {
     this.api.save(key, questionario).then((res) => {

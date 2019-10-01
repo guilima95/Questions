@@ -1,28 +1,33 @@
-import { Component } from '@angular/core';
-import {QuizModel} from '../app/models/quiz.model';
-import dataQuiz from './data/db.json';
+import { Injectable } from '@angular/core';
+import { QuizModel } from '../app/models/quiz.model';
+import { Config } from '../app/models/Config';
+import { HttpClient } from '@angular/common/http';
+import { resolve, reject } from 'q';
 
-@Component({
-    selector: 'app-root'
+@Injectable({
+    providedIn: 'root'
 })
 
-export class QuizService{
-    //private fs = require('fs');
-    private quizArray: Array<QuizModel>;
+export class QuizService {
+    public quizArray: any;
+    constructor(private http: HttpClient) { }
 
-    public async GetQuizzes(): Promise<Array<QuizModel>>{
-        //this.fs.readFile('../app/data/db.json', handleJSONFile);
+    public async GetQuizzes() {
+        return await new Promise((resolve, reject) => {
+            this.http.get<Array<QuizModel>>('assets/db.json')
+                .subscribe((data) => {
+                    this.quizArray = data;
+                    resolve(data);
 
-        // var handleJSONFile = async function(err, data){
-        //     if(err){
-        //         throw err;
-        //     }
-
-        //     this.quizArray = await JSON.parse(data);
-        // }
-
-        this.quizArray = dataQuiz;
-
-        return this.quizArray;
+                },
+                    error => {
+                        if (error.status === 404) {
+                            resolve(error.status);
+                        }
+                        else {
+                            console.log('ocorreu um erro');
+                        }
+                    });
+        });
     }
 }

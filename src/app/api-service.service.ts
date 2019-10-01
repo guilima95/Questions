@@ -8,15 +8,14 @@ import { QuizModel } from './models/quiz.model';
   providedIn: 'root'
 })
 export class ApiService {
-  KEY_QUESTIONARIOS = 'questionario-geral';
+
   KEY_QUESTIONARIOS_RESPONDIDOS = 'questionario-respondido';
-  KEY_QUESTIONARIOS_RESPOSTAS = 'questionario-respostas';
 
   public quizArray: Array<QuizModel>;
 
   // tslint:disable-next-line:max-line-length
-  constructor(public toastController: ToastController, public alertController: AlertController, public loadingController: LoadingController
-  ) { }
+  constructor(public toastController: ToastController, public alertController: AlertController, public loadingController: LoadingController,
+  private quizService: QuizService) { }
 
 
   async save(key: string, questionario: any) {
@@ -73,9 +72,7 @@ export class ApiService {
     await alert.present();
   }
 
-  async getQuizzes(){
-    let quizService = new QuizService();
-
-    return await quizService.GetQuizzes();
+  getQuizzes(){    
+    return this.quizService.GetQuizzes();
   }
 }
