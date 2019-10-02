@@ -11,6 +11,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content>  
+  <ion-list *ngFor="let question of questions">
+    <ion-item color="none" lines="none">
+      <ion-label class="ion-text-wrap" color="dark">{{question.descricao}}</ion-label>
+    </ion-item> 
+    <ion-item color="none" lines="none">
+      <ion-list *ngFor="let answer of question.repostas">
+        <ion-item color="none" lines="none">
+          <ion-label class="ion-text-wrap" color="dark">{{answer.descricao}}</ion-label>
+        </ion-item> 
+      </ion-list>
+    </ion-item> 
+  </ion-list>
 </ion-content>

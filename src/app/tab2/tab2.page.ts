@@ -9,23 +9,24 @@ import { QuizService } from '../app-quiz.service';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page implements OnInit, AfterViewInit {
-  ngAfterViewInit(): void {
-  
-  }
+export class Tab2Page implements OnInit{  
   public quizList: any;
+
   ngOnInit(): void {
-    this.quizList = [];
-    this.api.GetQuizzes().then((res)=>{
-      console.log(res);
-      this.quizList = res;
-    });
+    this.carregarQuestionarios();
    }
  
   constructor(private navCtrl: NavController, public router: Router, private api: QuizService) { }
 
   goBack() {
     this.navCtrl.back();
+  }
+
+  carregarQuestionarios(){
+    this.quizList = [];
+    this.api.GetQuizzes().then((res)=>{
+      this.quizList = res;
+    });
   }
  
   abrirQuestionario(id: string) {

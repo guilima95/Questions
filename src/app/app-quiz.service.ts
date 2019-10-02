@@ -14,11 +14,10 @@ export class QuizService {
 
     public async GetQuizzes() {
         return await new Promise((resolve, reject) => {
-            this.http.get<Array<QuizModel>>('assets/db.json')
+            this.http.get<Array<QuizModel>>('assets/form.json')
                 .subscribe((data) => {
-                    this.quizArray = data;
+                    //this.quizArray = data;
                     resolve(data);
-
                 },
                     error => {
                         if (error.status === 404) {

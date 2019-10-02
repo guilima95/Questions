@@ -1,9 +1,11 @@
 import { ApiService } from './../api-service.service';
 import { NavController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { from } from 'rxjs';
+import { Observable } from 'rxjs';
 import { QuizService } from '../app-quiz.service';
+import { QuizModel } from '../models/quiz.model';
+import { QuestionModel } from '../models/question.model';
 
 @Component({
   selector: 'app-questao',
@@ -12,7 +14,15 @@ import { QuizService } from '../app-quiz.service';
 })
 export class QuestaoComponent implements OnInit {
   argumentos = null;
-  public quizList: any;
+  public quizList: Array<QuizModel>;
+  public questions: Array<QuestionModel>;
+
+  ngOnInit(): void {
+    this.argumentos = this.route.snapshot.params.optional_id;
+    if (this.argumentos != null) {
+      this.listaQuiestionarios(this.argumentos);
+    }
+  }
 
   constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService, private route: ActivatedRoute, private router: Router) { }
 
@@ -21,19 +31,17 @@ export class QuestaoComponent implements OnInit {
     this.navCtrl.back();
   }
 
-  ngOnInit(): void {
-    this.argumentos = this.route.snapshot.params.optional_id;
-    if (this.argumentos != null) {
-      this.recuperarQuestionario(this.argumentos);
-      this.listaQuiestionarios();
-    }
-  }
-
-  private async listaQuiestionarios(){
-    this.quizList = [];
-    this.apiQuiz.GetQuizzes().then((res)=>{
-      console.log(res);
-      this.quizList = res;
+  listaQuiestionarios(id: number) {
+    this.quizList = new Array<QuizModel>();
+    this.questions = new Array<QuestionModel>();
+    
+    this.apiQuiz.GetQuizzes().then((res: any) => {
+      this.quizList = res.questionario;
+      this.quizList = this.quizList.filter(f => f.id == id);
+      
+      this.quizList.forEach(f => {
+          this.questions = f.questoes;
+      });
     });
   }
 
