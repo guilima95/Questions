@@ -1,42 +1,44 @@
-<ion-header>
-  <ion-toolbar mode="ios">
-    <ion-buttons slot="start">
-      <ion-button color="dark" (click)="goBack()">
-        <ion-icon name="md-arrow-round-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="titleT">
-      Responder
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-app>
+  <ion-header>
+    <ion-toolbar mode="ios">
+      <ion-buttons slot="start">
+        <ion-button color="dark" (click)="goBack()">
+          <ion-icon name="md-arrow-round-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="titleT">
+        Responder
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content fullscreen>
-  <ion-list>
-    <ion-list *ngFor="let question of questions">
-      <ion-item color="none">
-        <ion-label class="ion-text-wrap" color="dark">
-          <h3>{{question.descricao}}</h3>
-        </ion-label>
-      </ion-item>
+  <ion-content fullscreen>
+    <ion-list>
+      <ion-list *ngFor="let question of questions">
+        <ion-item color="none">
+          <ion-label class="ion-text-wrap" color="dark">
+            <h3>{{question.descricao}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-list *ngFor="let answer of answers">
+        <ion-item lines="none" color="none">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>{{answer.descricao}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button expand="block" (click)="showModal(answer.id)">Opções</ion-button>
+              <!-- <ion-select color="primary" [placeholder]="'Selecione...'"> -->
+              <!-- <ion-select-option *ngFor="let option of answer.opcoes" value="{{option.id}}"> -->
+              <!-- <ion-label class="ion-text-wrap" color="dark">{{option.descricao}}</ion-label> -->
+              <!-- </ion-select-option> -->
+              <!-- </ion-select> -->
+            </ion-card-content>
+          </ion-card>
+          <!-- <ion-label class="ion-text-wrap" color="dark">{{answer.descricao}}</ion-label> -->
+        </ion-item>
+      </ion-list>
     </ion-list>
-    <ion-list *ngFor="let answer of answers">
-      <ion-item lines="none" color="none">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-subtitle>{{answer.descricao}}</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-label>Opções</ion-label>
-            <ion-select [placeholder]="'Selecione ums opção'">
-              <ion-select-option *ngFor="let option of answer.opcoes" value="{{option.id}}">
-                  <ion-label class="ion-text-wrap" color="dark">{{option.descricao}}</ion-label>
-              </ion-select-option>
-            </ion-select>
-          </ion-card-content>
-        </ion-card>
-        <!-- <ion-label class="ion-text-wrap" color="dark">{{answer.descricao}}</ion-label> -->
-      </ion-item>
-    </ion-list>
-  </ion-list>
-</ion-content>
+  </ion-content>
+</ion-app>

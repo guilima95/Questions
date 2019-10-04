@@ -1,11 +1,12 @@
 import { ApiService } from './../api-service.service';
-import { NavController } from '@ionic/angular';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NavController, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../app-quiz.service';
 import { QuizModel } from '../models/quiz.model';
 import { QuestionModel } from '../models/question.model';
 import { AnswerModel } from '../models/answer.model';
+import { ModalOptionPage } from '../modal/modal-option/modal-option.page';
 
 @Component({
   selector: 'app-questao',
@@ -25,11 +26,25 @@ export class QuestaoComponent implements OnInit {
     }
   }
 
-  constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService, 
+    private route: ActivatedRoute, private router: Router, public modalController: ModalController) { }
 
   goBack() {
     this.argumentos = null;
     this.navCtrl.back();
+  }
+
+  async showModal(answerId: number){
+    const modal = await this.modalController.create({
+      component: ModalOptionPage,
+      componentProps:{
+        'answerId': answerId
+      }
+    });
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    //Criar objeto para resposta.
   }
 
   listaQuiestionarios(id: number) {

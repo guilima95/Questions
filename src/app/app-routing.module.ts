@@ -5,6 +5,8 @@ const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'questao/:optional_id', loadChildren: './questao/questao.module#QuestaoComponentModule' },
   { path: 'resposta/:optional_id', loadChildren: './resposta/resposta.module#RespostaComponentModule' },
+  { path: 'modal-option', loadChildren: './modal/modal-option/modal-option.module#ModalOptionPageModule' },
+
 ];
 @NgModule({
   imports: [

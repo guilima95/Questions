@@ -1,0 +1,23 @@
+<ion-app>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-title>
+        <ion-label position="inline">Opções</ion-label>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismissModal()">Ok</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen class="ion-padding">
+    <ion-list>
+      <ion-radio-group allow-empty-selection="true" name="radio-group">
+        <ion-item *ngFor="let option of options" (ionSelect)="radioSelect($event)">
+          <ion-label class="ion-text-wrap" color="dark">{{option.descricao}}</ion-label>
+          <ion-radio slot="start" color="primary" value="{{option.id}}" name="{{option.score}}"
+            checked="{{option.escolhida}}"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+  </ion-content>
+</ion-app>
