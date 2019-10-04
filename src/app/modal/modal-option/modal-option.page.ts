@@ -12,6 +12,7 @@ import { QuizModel } from 'src/app/models/quiz.model';
 export class ModalOptionPage implements OnInit {
 
   @Input() answerId: number;
+  @Input() quizId: number;
 
   private options: Array<OptionModel>;
   private quizList: Array<QuizModel>;
@@ -23,13 +24,13 @@ export class ModalOptionPage implements OnInit {
   }
 
   ngOnInit() {
-    this.listaQuiestionarios(this.navParams.get('answerId'));
+    this.listaQuiestionarios(this.navParams.get('quizId'), this.navParams.get('answerId'));
   }
 
-  listaQuiestionarios(answerId: number) {
+  listaQuiestionarios(quizId: number, answerId: number) {
     this.apiQuiz.GetQuizzes().then((res: any) => {
       this.quizList = res.questionario;
-      this.quizList = this.quizList.filter(f => f.questoes.some(fq => fq.respostas
+      this.quizList = this.quizList.filter(f => f.id == quizId && f.questoes.some(fq => fq.respostas
         .some(r => r.id == answerId)));
 
       this.quizList.forEach(f => {

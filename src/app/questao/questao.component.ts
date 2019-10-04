@@ -5,7 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../app-quiz.service';
 import { QuizModel } from '../models/quiz.model';
 import { QuestionModel } from '../models/question.model';
-import { AnswerModel } from '../models/answer.model';
+import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
+//import { AnswerModel } from '../models/answer.model';
 import { ModalOptionPage } from '../modal/modal-option/modal-option.page';
 
 @Component({
@@ -17,40 +18,47 @@ export class QuestaoComponent implements OnInit {
   argumentos = null;
   public quizList: Array<QuizModel>;
   public questions: Array<QuestionModel>;
-  public answers: Array<AnswerModel>;
+  public disableAnswerList: number [];
+  private questionnaireAnswered: QuestionarioRespondido = new QuestionarioRespondido();
+  private quizId: number;  
 
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;
     if (this.argumentos != null) {
+      this.quizId = this.argumentos;
+      this.questionnaireAnswered.id = this.argumentos;
       this.listaQuiestionarios(this.argumentos);
     }
   }
 
   constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService, 
-    private route: ActivatedRoute, private router: Router, public modalController: ModalController) { }
+    private route: ActivatedRoute, private router: Router, public modalController: ModalController) {
+      this.disableAnswerList = [];
+     }
 
   goBack() {
     this.argumentos = null;
     this.navCtrl.back();
   }
 
-  async showModal(answerId: number){
+  async showModal(questionId: number, answerId: number){
     const modal = await this.modalController.create({
       component: ModalOptionPage,
       componentProps:{
-        'answerId': answerId
+        'answerId': answerId,
+        'quizId': this.quizId
       }
     });
     await modal.present();
 
     const { data } = await modal.onWillDismiss();
-    //Criar objeto para resposta.
+    this.montaQuestionarioRespondido(questionId, answerId, data.optionId);
   }
 
   listaQuiestionarios(id: number) {
     this.quizList = new Array<QuizModel>();
     this.questions = new Array<QuestionModel>();
-    this.answers = new Array<AnswerModel>();
+    //this.answers = new Array<AnswerModel>();
     
     this.apiQuiz.GetQuizzes().then((res: any) => {
       this.quizList = res.questionario;
@@ -58,11 +66,20 @@ export class QuestaoComponent implements OnInit {
       
       this.quizList.forEach(f => {
           this.questions = f.questoes;
-          this.questions.forEach(fq => {
-              this.answers = fq.respostas;
-          });
+          // this.questions.forEach(fq => {
+          //     this.answers = fq.respostas;
+          // });
       });
     });
+  }
+
+  desabilitaOpcao(answerId: number): boolean{
+    let retorno: boolean = false;
+
+    if(this.disableAnswerList.some(s => s.valueOf() == answerId))
+      retorno = true;
+
+    return retorno;
   }
 
   private salvandoRespostas(key: string, questionario: string) {
@@ -73,11 +90,25 @@ export class QuestaoComponent implements OnInit {
     });
   }
 
-
   private recuperarQuestionario(key: string) {
     this.api.recuperar(key).then((questionario: any) => {
       console.log(questionario);
     }).catch((err) => {
     });
+  }
+
+  private montaQuestionarioRespondido(questionId: number, answerId: number, optionId: number){
+    let questaoResp = {
+      id: questionId,
+      resposta: {
+        id: answerId,
+        opcao: {
+          id: optionId
+        }
+      }
+    };
+
+    this.questionnaireAnswered.questoes.push(questaoResp);
+    this.disableAnswerList.push(optionId);
   }
 }

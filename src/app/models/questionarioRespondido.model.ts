@@ -1,3 +1,10 @@
-class questionarioRespondido{
-    constructor(public questionarioId, public perguntaId, public respostaId, public opcaoId){}
+
+export class QuestionarioRespondido{
+    public id: number;    
+    public questoes: Array<any>;  
+
+    constructor(){
+        this.id;
+        this.questoes = new Array<any>();
+    }
 }
