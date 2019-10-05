@@ -21,6 +21,7 @@ export class QuestaoComponent implements OnInit {
   public disableAnswerList: number [];
   private questionnaireAnswered: QuestionarioRespondido = new QuestionarioRespondido();
   private quizId: number;  
+  private readonly KEY_QUESTIONARIOS_RESPONDIDOS = 'questionario-respondido';
 
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;
@@ -58,7 +59,6 @@ export class QuestaoComponent implements OnInit {
   listaQuiestionarios(id: number) {
     this.quizList = new Array<QuizModel>();
     this.questions = new Array<QuestionModel>();
-    //this.answers = new Array<AnswerModel>();
     
     this.apiQuiz.GetQuizzes().then((res: any) => {
       this.quizList = res.questionario;
@@ -66,9 +66,6 @@ export class QuestaoComponent implements OnInit {
       
       this.quizList.forEach(f => {
           this.questions = f.questoes;
-          // this.questions.forEach(fq => {
-          //     this.answers = fq.respostas;
-          // });
       });
     });
   }
@@ -82,9 +79,27 @@ export class QuestaoComponent implements OnInit {
     return retorno;
   }
 
+  habilitaBotao(): boolean{
+    let qtdTotalQuestoes: number;
+    let qtdQuestaoRespondida: number = this.questionnaireAnswered.questoes.length;    
+
+    this.quizList.forEach(q => {
+      q.questoes.forEach(qt => {
+        qtdTotalQuestoes = qt.respostas.length;
+      });
+    });
+
+    return qtdTotalQuestoes == qtdQuestaoRespondida ? true : false;
+  }
+
+  salvarRespostas(){
+    this.salvandoRespostas(this.KEY_QUESTIONARIOS_RESPONDIDOS, JSON.stringify(this.questionnaireAnswered));
+  }
+
   private salvandoRespostas(key: string, questionario: string) {
     this.api.save(key, questionario).then((res) => {
-      console.log('');
+      let salvo = this.recuperarQuestionario(this.KEY_QUESTIONARIOS_RESPONDIDOS);
+      console.log(salvo);
     }).catch((err) => {
       console.log('');
     });
@@ -109,6 +124,6 @@ export class QuestaoComponent implements OnInit {
     };
 
     this.questionnaireAnswered.questoes.push(questaoResp);
-    this.disableAnswerList.push(optionId);
+    this.disableAnswerList.push(answerId);
   }
 }
