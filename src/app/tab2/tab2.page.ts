@@ -16,7 +16,7 @@ export class Tab2Page implements OnInit{
     this.carregarQuestionarios();
    }
  
-  constructor(private navCtrl: NavController, public router: Router, private api: QuizService) { }
+  constructor(private navCtrl: NavController, public router: Router, private quizApi: QuizService) { }
 
   goBack() {
     this.navCtrl.back();
@@ -24,7 +24,7 @@ export class Tab2Page implements OnInit{
 
   carregarQuestionarios(){
     this.quizList = [];
-    this.api.GetQuizzes().then((res)=>{
+    this.quizApi.GetQuizzes().then((res)=>{
       this.quizList = res;
     });
   }

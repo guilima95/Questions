@@ -11,13 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RespostaComponent implements OnInit {
   argumentos = null;
 
-  constructor(private navCtrl: NavController, private api: ApiService, private route: ActivatedRoute, private router: Router) { }
-
-  goBack() {
-    this.argumentos = null;
-    this.navCtrl.back();
-  }
-
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;
     if (this.argumentos != null) {
@@ -25,7 +18,12 @@ export class RespostaComponent implements OnInit {
     }
   }
 
+  constructor(private navCtrl: NavController, private api: ApiService, private route: ActivatedRoute, private router: Router) { }
 
+  goBack() {
+    this.argumentos = null;
+    this.navCtrl.back();
+  }
 
   private recuperarQuestionario(key: string) {
     this.api.recuperar(key).then((questionario: any) => {
