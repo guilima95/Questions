@@ -21,7 +21,6 @@ export class QuestaoComponent implements OnInit {
   public disableAnswerList: number [];
   private questionnaireAnswered: QuestionarioRespondido = new QuestionarioRespondido();
   private quizId: number;  
-  private KEY_QUESTIONARIOS_RESPONDIDOS = 'questionario-respondidoId-';
 
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;
@@ -93,12 +92,12 @@ export class QuestaoComponent implements OnInit {
   }
 
   salvarRespostas(){
-    this.salvandoRespostas(this.KEY_QUESTIONARIOS_RESPONDIDOS + this.quizId.toString(), JSON.stringify(this.questionnaireAnswered));
+    this.salvandoRespostas(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + this.quizId.toString(), JSON.stringify(this.questionnaireAnswered));
   }
 
   private salvandoRespostas(key: string, questionario: string) {
     this.api.save(key, questionario).then((res) => {
-      let salvo = this.recuperarQuestionario(this.KEY_QUESTIONARIOS_RESPONDIDOS);
+      //Fazer mesnagem de sucesso e direcionar para respondido.
     }).catch((err) => {
       console.log('');
     });

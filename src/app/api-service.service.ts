@@ -9,7 +9,7 @@ import { QuizModel } from './models/quiz.model';
 })
 export class ApiService {
 
-  KEY_QUESTIONARIOS_RESPONDIDOS = 'questionario-respondido';
+  public KEY_QUESTIONARIOS_RESPONDIDOS = 'questionario-respondidoId-';
 
   public quizArray: Array<QuizModel>;
 
