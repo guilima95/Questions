@@ -2,9 +2,9 @@ import { ApiService } from './../api-service.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuizModel } from '../models/quiz.model';
 import { QuizService } from '../app-quiz.service';
 import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
+import { QuestionarioRespostaView } from '../models/questionarioRespostaView';
 
 @Component({
   selector: 'app-resposta',
@@ -13,7 +13,7 @@ import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
 })
 export class RespostaComponent implements OnInit {
   argumentos = null;
-  public quizLizt: Array<QuizModel>;
+  public questionarioRespostaView: QuestionarioRespostaView;
 
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;
@@ -23,7 +23,7 @@ export class RespostaComponent implements OnInit {
   }
 
   constructor(private navCtrl: NavController, private api: ApiService, private quizApi: QuizService,
-     private route: ActivatedRoute, private router: Router) { }
+    private route: ActivatedRoute, private router: Router) { }
 
   goBack() {
     this.argumentos = null;
@@ -31,36 +31,60 @@ export class RespostaComponent implements OnInit {
   }
 
   private recuperarQuestionario(key: string) {
+    this.questionarioRespostaView = new QuestionarioRespostaView();
+
     this.api.recuperar(key).then((questionario) => {
-      console.log(questionario);
-      let questionarioResp: QuestionarioRespondido = JSON.parse(questionario);
+      let questionarioRespData: QuestionarioRespondido = JSON.parse(questionario);
       let respostaIds: Array<any> = new Array<any>();
       let opcaoIds: Array<any> = new Array<any>();
 
-      questionarioResp.questoes.forEach(f => {
+      questionarioRespData.questoes.forEach(f => {
         respostaIds.push(f.resposta.id);
         opcaoIds.push(f.resposta.opcao.id);
       });
 
-      this.quizApi.GetQuizzes().then((questionarioList: any) => {
-        let quizFromDt: Array<QuizModel> = questionarioList.questionario.filter(f => f.id == questionarioResp.id);
-            // f.questoes.filter(q => questionarioResp.questoes.includes(q.id) && 
-            //   q.respostas.filter(r => respostaIds.includes(r.id) && 
-            //     r.opcoes.filter(o => opcaoIds.includes(o.id)))));
-
-        questionarioResp.questoes.forEach(qdt => {
+      this.quizApi.GetQuizzes().then((questionarioList: any) => {   
+        questionarioList = questionarioList.questionario.filter(q => q.id == this.argumentos);
+        
+        questionarioRespData.questoes.forEach(qdt => {
           let idResposta = qdt.resposta.id;
           let idOpcao = qdt.resposta.opcao.id;
 
-          //Melhorar a lógica
-          let teste = questionarioList.questionario.find(ql => ql.questoes.find(qtl => qtl.id == qdt.id && 
-            qtl.respostas.find(rl => rl.id == idResposta && 
-              rl.opcoes.find(ol => ol.id == idOpcao))));          
-        });
-        
-        console.log(this.quizLizt);
+          questionarioList.forEach(quest => {
+            quest.questoes.forEach(questao => {
+              if (questao.id == qdt.id) {                
+                this.questionarioRespostaView.questaoId = questao.id;
+                this.questionarioRespostaView.descricao = questao.descricao;
+
+                questao.respostas.forEach(resp => {
+                  if (resp.id == idResposta) {
+                    var resposta = {
+                      id: resp.id,
+                      descricao: resp.descricao,
+                      opcao: {}
+                    };   
+
+                    resp.opcoes.forEach(opcao => {
+                      if (opcao.id == idOpcao) {
+                        let opcaoObj = {
+                          id: opcao.id,
+                          descricao: opcao.descricao,
+                          score: opcao.score
+                        };
+
+                        resposta.opcao = opcaoObj;
+                        this.questionarioRespostaView.respostas.push(resposta);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          });
+        });        
       });
     }).catch((err) => {
+      console.log(err);
     });
   }
 }
