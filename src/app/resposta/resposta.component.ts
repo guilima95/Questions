@@ -14,11 +14,14 @@ import { QuestionarioRespostaView } from '../models/questionarioRespostaView';
 export class RespostaComponent implements OnInit {
   argumentos = null;
   public questionarioRespostaView: QuestionarioRespostaView;
+  //public scoreList: number[] = [];
+  public totalScore: number = 0;
 
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;
     if (this.argumentos != null) {
       this.recuperarQuestionario(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + this.argumentos);
+      this.calculaScore();
     }
   }
 
@@ -74,6 +77,7 @@ export class RespostaComponent implements OnInit {
 
                         resposta.opcao = opcaoObj;
                         this.questionarioRespostaView.respostas.push(resposta);
+                        this.totalScore = opcao.score + this.totalScore;
                       }
                     });
                   }
@@ -81,10 +85,16 @@ export class RespostaComponent implements OnInit {
               }
             });
           });
-        });        
-      });
+        }); 
+        this.calculaScore();       
+      }); 
     }).catch((err) => {
       console.log(err);
-    });
+    });    
+  }
+
+  private calculaScore(){
+    // this.totalScore = this.scoreList.reduce((a, b) => a + b);
+    // console.log(this.totalScore);
   }
 }
