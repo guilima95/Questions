@@ -3,6 +3,7 @@
       {
         "id": 1,
         "nome": "3 Anos",
+        "idade": 3,
         "respondido": false,
         "questoes": [
           {

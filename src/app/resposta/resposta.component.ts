@@ -12,16 +12,14 @@ import { QuestionarioRespostaView } from '../models/questionarioRespostaView';
   styleUrls: ['./resposta.component.scss'],
 })
 export class RespostaComponent implements OnInit {
-  argumentos = null;
+  private quizId = null;
   public questionarioRespostaView: QuestionarioRespostaView;
-  //public scoreList: number[] = [];
   public totalScore: number = 0;
 
   ngOnInit(): void {
-    this.argumentos = this.route.snapshot.params.optional_id;
-    if (this.argumentos != null) {
-      this.recuperarQuestionario(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + this.argumentos);
-      this.calculaScore();
+    this.quizId = this.route.snapshot.params.optional_id;
+    if (this.quizId != null) {
+      this.recuperarQuestionario(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + this.quizId);
     }
   }
 
@@ -29,8 +27,8 @@ export class RespostaComponent implements OnInit {
     private route: ActivatedRoute, private router: Router) { }
 
   goBack() {
-    this.argumentos = null;
-    this.navCtrl.back();
+    this.quizId = null;
+    this.router.navigate(['']);
   }
 
   private recuperarQuestionario(key: string) {
@@ -47,7 +45,7 @@ export class RespostaComponent implements OnInit {
       });
 
       this.quizApi.GetQuizzes().then((questionarioList: any) => {   
-        questionarioList = questionarioList.questionario.filter(q => q.id == this.argumentos);
+        questionarioList = questionarioList.questionario.filter(q => q.id == this.quizId);
         
         questionarioRespData.questoes.forEach(qdt => {
           let idResposta = qdt.resposta.id;
@@ -85,16 +83,10 @@ export class RespostaComponent implements OnInit {
               }
             });
           });
-        }); 
-        this.calculaScore();       
+        });       
       }); 
     }).catch((err) => {
       console.log(err);
     });    
-  }
-
-  private calculaScore(){
-    // this.totalScore = this.scoreList.reduce((a, b) => a + b);
-    // console.log(this.totalScore);
   }
 }

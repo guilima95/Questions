@@ -1,12 +1,11 @@
 import { ApiService } from './../api-service.service';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../app-quiz.service';
 import { QuizModel } from '../models/quiz.model';
 import { QuestionModel } from '../models/question.model';
 import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
-//import { AnswerModel } from '../models/answer.model';
 import { ModalOptionPage } from '../modal/modal-option/modal-option.page';
 
 @Component({
@@ -32,7 +31,8 @@ export class QuestaoComponent implements OnInit {
   }
 
   constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService, 
-    private route: ActivatedRoute, private router: Router, public modalController: ModalController) {
+    private route: ActivatedRoute, private router: Router, public modalController: ModalController,
+    private alertController: AlertController) {
       this.disableAnswerList = [];
      }
 
@@ -95,9 +95,28 @@ export class QuestaoComponent implements OnInit {
     this.salvandoRespostas(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + this.quizId.toString(), JSON.stringify(this.questionnaireAnswered));
   }
 
+  private async mensagemSucesso(id: string){
+    const sucessoMsg = await this.alertController.create({
+      header: 'Sucesso!',
+      message: 'Questionário salvo com sucesso!!!',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'ok',
+          cssClass: 'primary',
+          handler: () => {
+            this.router.navigate(['/resposta', id]);
+          }
+        }
+      ]
+    });
+
+    await sucessoMsg.present();
+  }
+
   private salvandoRespostas(key: string, questionario: string) {
     this.api.save(key, questionario).then((res) => {
-      //Fazer mesnagem de sucesso e direcionar para respondido.
+      this.mensagemSucesso(this.quizId.toString());
     }).catch((err) => {
       console.log('');
     });
