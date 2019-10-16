@@ -10,6 +10,7 @@ import { QuizModel } from './models/quiz.model';
 export class ApiService {
 
   public KEY_QUESTIONARIOS_RESPONDIDOS = 'questionario-respondidoId-';
+  public KEY_FORMULARIO_PREENCHIDO = 'formulario-preenchido';
 
   public quizArray: Array<QuizModel>;
 

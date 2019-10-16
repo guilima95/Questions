@@ -122,13 +122,6 @@ export class QuestaoComponent implements OnInit {
     });
   }
 
-  private recuperarQuestionario(key: string) {
-    this.api.recuperar(key).then((questionario: any) => {
-      console.log(questionario);
-    }).catch((err) => {
-    });
-  }
-
   private montaQuestionarioRespondido(questionId: number, answerId: number, optionId: number){
     let questaoResp = {
       id: questionId,
