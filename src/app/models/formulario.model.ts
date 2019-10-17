@@ -10,7 +10,7 @@ export class Formulario{
 
     public nomeCrianca: string;
 
-    public dataNascimentoCrianca: string;
+    public dataNascimento: string;
 
     public parentesco: string;
 
