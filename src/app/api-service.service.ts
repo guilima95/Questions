@@ -49,6 +49,10 @@ export class ApiService {
     return await localStorage.getItem(key);
   }
 
+  async clearLocalStorage(){
+    return await localStorage.clear();
+  }
+
   async presentAlertConfirm(h, m) {
     const alert = await this.alertController.create({
       header: h,

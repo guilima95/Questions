@@ -15,4 +15,6 @@ export class Formulario{
     public parentesco: string;
 
     public prematuro: boolean;
+
+    public idade?: number;
 }
