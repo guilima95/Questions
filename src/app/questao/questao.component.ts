@@ -8,6 +8,11 @@ import { QuestionModel } from '../models/question.model';
 import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
 import { ModalOptionPage } from '../modal/modal-option/modal-option.page';
 
+enum tipoMensagem {
+  sucesso,
+  alerta
+}
+
 @Component({
   selector: 'app-questao',
   templateUrl: './questao.component.html',
@@ -17,9 +22,9 @@ export class QuestaoComponent implements OnInit {
   argumentos = null;
   public quizList: Array<QuizModel>;
   public questions: Array<QuestionModel>;
-  public disableAnswerList: number [];
+  public disableAnswerList: number[];
   private questionnaireAnswered: QuestionarioRespondido = new QuestionarioRespondido();
-  private quizId: number;  
+  private quizId: number;
 
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;
@@ -30,21 +35,20 @@ export class QuestaoComponent implements OnInit {
     }
   }
 
-  constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService, 
+  constructor(private navCtrl: NavController, private api: ApiService, private apiQuiz: QuizService,
     private route: ActivatedRoute, private router: Router, public modalController: ModalController,
     private alertController: AlertController) {
-      this.disableAnswerList = [];
-     }
-
-  goBack() {
-    this.argumentos = null;
-    this.navCtrl.back();
+    this.disableAnswerList = [];
   }
 
-  async showModal(questionId: number, answerId: number){
+  goBack() {
+    this.verificaSeRespondendoForm();
+  }
+
+  async showModal(questionId: number, answerId: number) {
     const modal = await this.modalController.create({
       component: ModalOptionPage,
-      componentProps:{
+      componentProps: {
         'answerId': answerId,
         'quizId': this.quizId
       }
@@ -58,29 +62,29 @@ export class QuestaoComponent implements OnInit {
   listaQuiestionarios(id: number) {
     this.quizList = new Array<QuizModel>();
     this.questions = new Array<QuestionModel>();
-    
+
     this.apiQuiz.GetQuizzes().then((res: any) => {
       this.quizList = res.questionario;
       this.quizList = this.quizList.filter(f => f.id == id);
-      
+
       this.quizList.forEach(f => {
-          this.questions = f.questoes;
+        this.questions = f.questoes;
       });
     });
   }
 
-  desabilitaOpcao(answerId: number): boolean{
+  desabilitaOpcao(answerId: number): boolean {
     let retorno: boolean = false;
 
-    if(this.disableAnswerList.some(s => s.valueOf() == answerId))
+    if (this.disableAnswerList.some(s => s.valueOf() == answerId))
       retorno = true;
 
     return retorno;
   }
 
-  habilitaBotao(): boolean{
+  habilitaBotao(): boolean {
     let qtdTotalQuestoes: number;
-    let qtdQuestaoRespondida: number = this.questionnaireAnswered.questoes.length;    
+    let qtdQuestaoRespondida: number = this.questionnaireAnswered.questoes.length;
 
     this.quizList.forEach(q => {
       q.questoes.forEach(qt => {
@@ -91,38 +95,66 @@ export class QuestaoComponent implements OnInit {
     return qtdTotalQuestoes == qtdQuestaoRespondida ? true : false;
   }
 
-  salvarRespostas(){
+  salvarRespostas() {
     this.salvandoRespostas(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + this.quizId.toString(), JSON.stringify(this.questionnaireAnswered));
   }
 
-  private async mensagemSucesso(id: string){
-    const sucessoMsg = await this.alertController.create({
-      header: 'Sucesso!',
-      message: 'Questionário salvo com sucesso!!!',
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'ok',
-          cssClass: 'primary',
-          handler: () => {
-            this.router.navigate(['/resposta', id]);
+  private async mensagem(tipo: tipoMensagem, id?: string) {
+    if (tipo == tipoMensagem.sucesso) {
+      const sucessoMsg = await this.alertController.create({
+        header: 'Sucesso!',
+        message: 'Questionário salvo com sucesso!!!',
+        buttons: [
+          {
+            text: 'Ok',
+            role: 'ok',
+            cssClass: 'primary',
+            handler: () => {
+              this.router.navigate(['/resposta', id]);
+            }
           }
-        }
-      ]
-    });
+        ]
+      });
 
-    await sucessoMsg.present();
+      await sucessoMsg.present();
+    }
+    else{
+      const alertaMsg = await this.alertController.create({
+        header: 'Atenção!',
+        message: 'Você ainda não terminou o questionário!  Deseja realmente sair e perder as informações?',
+        buttons: [
+          {
+            text: 'Não',
+            role: 'nao',
+            cssClass: 'primary',
+            handler: () => {
+            }
+          },
+          {
+            text: 'Sim',
+            role: 'sim',
+            cssClass: 'danger',
+            handler: () => {
+              this.argumentos = null;
+              this.navCtrl.back();
+            }
+          }
+        ]
+      });
+
+      await alertaMsg.present();
+    }
   }
 
   private salvandoRespostas(key: string, questionario: string) {
     this.api.save(key, questionario).then((res) => {
-      this.mensagemSucesso(this.quizId.toString());
+      this.mensagem(tipoMensagem.sucesso, this.quizId.toString());
     }).catch((err) => {
       console.log('');
     });
   }
 
-  private montaQuestionarioRespondido(questionId: number, answerId: number, optionId: number){
+  private montaQuestionarioRespondido(questionId: number, answerId: number, optionId: number) {
     let questaoResp = {
       id: questionId,
       resposta: {
@@ -135,5 +167,11 @@ export class QuestaoComponent implements OnInit {
 
     this.questionnaireAnswered.questoes.push(questaoResp);
     this.disableAnswerList.push(answerId);
+  }
+
+  private verificaSeRespondendoForm() {
+    if (this.questionnaireAnswered.questoes.length > 0) {
+      this.mensagem(tipoMensagem.alerta);
+    }
   }
 }

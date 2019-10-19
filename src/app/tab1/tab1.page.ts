@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { Formulario as FormularioModel } from '../models/formulario.model';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { QuizService } from '../app-quiz.service';
 
 enum tipoMensagem {
   sucesso,
@@ -20,6 +21,7 @@ export class Tab1Page implements OnInit {
   public formulario: FormGroup;
   public parentescoArray: Array<string>;
   public exibeNovoForm: boolean = false;
+  private formularioPaciente: FormularioModel;
 
   ngOnInit(): void {
     this.criarValidacoes();
@@ -40,7 +42,7 @@ export class Tab1Page implements OnInit {
   }
 
   constructor(private api: ApiService, public formBuilder: FormBuilder,
-    private alertController: AlertController, private router: Router) { }
+    private alertController: AlertController, private router: Router, private quizApi: QuizService) { }
 
   validacoes_erros = {
     'nomeResponsavel': [
@@ -63,15 +65,15 @@ export class Tab1Page implements OnInit {
     let diferencaEmHoras = dataHoje.getTime() - dataNascimento.getTime();
     let diferencaEmDias = diferencaEmHoras / (1000 * 3600 * 24);
 
-    if (parseInt(diferencaEmDias.toFixed(0)) >= 1095 && parseInt(diferencaEmDias.toFixed(0)) < 1460)
+    if (parseInt(diferencaEmDias.toFixed(0)) >= 1095 && parseInt(diferencaEmDias.toFixed(0)) <= 1460) //3 anos até 1 dia antes de 4 anos
       formParaSalvar.idade = 3;
-    else if (parseInt(diferencaEmDias.toFixed(0)) >= 1460 && parseInt(diferencaEmDias.toFixed(0)) < 1825)
+    else if (parseInt(diferencaEmDias.toFixed(0)) >= 1460 && parseInt(diferencaEmDias.toFixed(0)) <= 1825) //4 anos até 1 dia antes de 5 anos
       formParaSalvar.idade = 4;
-    else
+    else //Fora da faixa de 3 e 4 anos de idade
       podeSalvar = false;
 
-    //limpar form
-    this.salvarFormulario(podeSalvar, formParaSalvar, values);
+    //To do: limpar form depois de salvar
+    this.salvarFormulario(podeSalvar, formParaSalvar);
   }
 
   novoQuestionario() {
@@ -111,7 +113,7 @@ export class Tab1Page implements OnInit {
     else if (tipo == tipoMensagem.informacao) {
       const informacaoMsg = await this.alertController.create({
         header: 'Atenção!',
-        message: 'Os questionários respondidos serão apagados, caso não tenha compartilhado o questionário, realize via e-mail, se já compartilhou, clique em "Ok"!',
+        message: 'Os questionários respondidos serão apagados, caso não tenha compartilhado o questionário, realize via e-mail, se já compartilhou, clique em "Ok"',
         buttons: [
           {
             text: 'Ok',
@@ -119,7 +121,7 @@ export class Tab1Page implements OnInit {
             cssClass: 'primary',
             handler: () => {
               this.exibeNovoForm = false;
-              this.api.clearLocalStorage();
+              this.limparLocalStorage();
             }
           },
           {
@@ -154,15 +156,29 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  private async salvarFormulario(podeSalvar: boolean, formulario: FormularioModel, valuesForm: any){
+  private async salvarFormulario(podeSalvar: boolean, formulario: FormularioModel){
     if (podeSalvar) {
       await this.api.save(this.api.KEY_FORMULARIO_PREENCHIDO, JSON.stringify(formulario)).then(() => {
         this.mensagem(tipoMensagem.sucesso);
-        valuesForm.resetForm();
       });
     }
     else {
       await this.mensagem(tipoMensagem.alerta, "A idade da criança está fora da faixa de 3 ou 4 anos de idade!");
     }
+  }
+
+  private limparLocalStorage(){
+    this.api.recuperar(this.api.KEY_FORMULARIO_PREENCHIDO).then((form) => {
+      if (form) {
+        this.formularioPaciente = JSON.parse(form); 
+
+        this.quizApi.GetQuizzes().then((res: any) => {
+          let quizId = res.questionario.filter(f => f.idade == this.formularioPaciente.idade)[0].id;
+
+          this.api.deleteItemLocalStorage(this.api.KEY_FORMULARIO_PREENCHIDO);
+          this.api.deleteItemLocalStorage(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + quizId);
+        });
+      }
+    });
   }
 }

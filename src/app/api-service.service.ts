@@ -49,8 +49,8 @@ export class ApiService {
     return await localStorage.getItem(key);
   }
 
-  async clearLocalStorage(){
-    return await localStorage.clear();
+  async deleteItemLocalStorage(key: string){
+    return await localStorage.removeItem(key);
   }
 
   async presentAlertConfirm(h, m) {

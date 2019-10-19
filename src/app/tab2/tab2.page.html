@@ -11,29 +11,16 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-
-  <ion-list *ngFor="let question of quizList.questionario">
+  <ion-list *ngFor="let question of quizList">
     <ion-item color="none" lines="none">
       <ion-label>{{question.nome}}</ion-label>
-      <ion-button fill='clear' (click)='abrirQuestionario(question.id)' size='large'>
-        <ion-icon name="ios-add-circle"></ion-icon>
+      <ion-button *ngIf="!existeQuestionarioRespondido" fill='solid' (click)='abrirQuestionario(question.id)' size='small'>
+        <ion-label>Responder</ion-label>
       </ion-button>
-      <ion-button fill='clear' color="success" (click)='respostasQuestionario(question.id)' size='large'>
-        <ion-icon name='ios-checkmark-circle'></ion-icon>
+      <ion-button *ngIf="existeQuestionarioRespondido" fill='solid' color="success" (click)='respostasQuestionario(question.id)' size='small'>
+        <ion-label>Visualizar</ion-label>
       </ion-button>
     </ion-item>
   </ion-list>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button size='medium'>
-      <ion-icon name="share"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button>
-        <ion-icon name="logo-whatsapp"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
 <ion-content>
