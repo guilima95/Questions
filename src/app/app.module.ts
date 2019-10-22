@@ -10,6 +10,7 @@ import { ApiService } from './api-service.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizService } from './app-quiz.service';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { QuizService } from './app-quiz.service';
     QuizService,
     StatusBar,
     SplashScreen,
+    FileOpener,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 
   ],

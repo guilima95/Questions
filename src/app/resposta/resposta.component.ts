@@ -1,10 +1,14 @@
 import { ApiService } from './../api-service.service';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../app-quiz.service';
 import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
 import { QuestionarioRespostaView } from '../models/questionarioRespostaView';
+import * as jsPDF from 'jspdf';
+import domtoimage from 'dom-to-image';
+import { File, IWriteOptions } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @Component({
   selector: 'app-resposta',
@@ -15,6 +19,7 @@ export class RespostaComponent implements OnInit {
   private quizId = null;
   public questionarioRespostaView: QuestionarioRespostaView;
   public totalScore: number = 0;
+  loading: any;
 
   ngOnInit(): void {
     this.quizId = this.route.snapshot.params.optional_id;
@@ -24,12 +29,25 @@ export class RespostaComponent implements OnInit {
   }
 
   constructor(private navCtrl: NavController, private api: ApiService, private quizApi: QuizService,
-    private route: ActivatedRoute, private router: Router) { }
+    private route: ActivatedRoute, private router: Router, private loadingController: LoadingController,
+    private file: File, private fileOpener: FileOpener) { }
 
   goBack() {
     this.quizId = null;
     this.router.navigate(['']);
   }
+
+  async presentLoadingWithOptions(msg: string) {
+    const loading = await this.loadingController.create({
+      spinner: null,
+      message: msg,
+      translucent: true,
+      cssClass: 'custom-class custom-loading'
+    });
+    return await loading.present();
+  }
+
+  //Implementar metodo para gerar pdf...
 
   private recuperarQuestionario(key: string) {
     this.questionarioRespostaView = new QuestionarioRespostaView();
@@ -44,16 +62,16 @@ export class RespostaComponent implements OnInit {
         opcaoIds.push(f.resposta.opcao.id);
       });
 
-      this.quizApi.GetQuizzes().then((questionarioList: any) => {   
+      this.quizApi.GetQuizzes().then((questionarioList: any) => {
         questionarioList = questionarioList.questionario.filter(q => q.id == this.quizId);
-        
+
         questionarioRespData.questoes.forEach(qdt => {
           let idResposta = qdt.resposta.id;
           let idOpcao = qdt.resposta.opcao.id;
 
           questionarioList.forEach(quest => {
             quest.questoes.forEach(questao => {
-              if (questao.id == qdt.id) {                
+              if (questao.id == qdt.id) {
                 this.questionarioRespostaView.questaoId = questao.id;
                 this.questionarioRespostaView.descricao = questao.descricao;
 
@@ -63,7 +81,7 @@ export class RespostaComponent implements OnInit {
                       id: resp.id,
                       descricao: resp.descricao,
                       opcao: {}
-                    };   
+                    };
 
                     resp.opcoes.forEach(opcao => {
                       if (opcao.id == idOpcao) {
@@ -83,10 +101,10 @@ export class RespostaComponent implements OnInit {
               }
             });
           });
-        });       
-      }); 
+        });
+      });
     }).catch((err) => {
       console.log(err);
-    });    
+    });
   }
 }

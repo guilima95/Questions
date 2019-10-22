@@ -118,7 +118,7 @@ export class QuestaoComponent implements OnInit {
 
       await sucessoMsg.present();
     }
-    else{
+    else {
       const alertaMsg = await this.alertController.create({
         header: 'Atenção!',
         message: 'Você ainda não terminou o questionário!  Deseja realmente sair e perder as informações?',
@@ -172,6 +172,10 @@ export class QuestaoComponent implements OnInit {
   private verificaSeRespondendoForm() {
     if (this.questionnaireAnswered.questoes.length > 0) {
       this.mensagem(tipoMensagem.alerta);
+    }
+    else {
+      this.argumentos = null;
+      this.navCtrl.back();
     }
   }
 }

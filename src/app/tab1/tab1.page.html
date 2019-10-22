@@ -94,7 +94,7 @@
           </div>
         </ng-container>
       </div>
-      <ion-button color="primary" class="submit-btn" expand="full" type="submit" [disabled]="!formulario.valid">Salvar
+      <ion-button color="primary" class="submit-btn" expand="full" type="submit" *ngIf="formulario.valid">Salvar
       </ion-button>
     </form>
   </ng-template>
