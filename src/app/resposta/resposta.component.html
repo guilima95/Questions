@@ -11,7 +11,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content fullscrean>
-  <div id="div-impressao">
+  <div id="div-impressao" #divImpressao>
     <ion-list>
       <ion-item color="none">
         <ion-label class="ion-text-wrap" color="dark" lines="none">
@@ -49,7 +49,7 @@
       <ion-icon name="share"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button>
+      <ion-fab-button (click)="exportPdf()">
         <ion-icon name="logo-whatsapp"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

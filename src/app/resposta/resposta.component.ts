@@ -1,6 +1,6 @@
 import { ApiService } from './../api-service.service';
 import { NavController, LoadingController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../app-quiz.service';
 import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
@@ -20,6 +20,8 @@ export class RespostaComponent implements OnInit {
   public questionarioRespostaView: QuestionarioRespostaView;
   public totalScore: number = 0;
   loading: any;
+
+  @ViewChild('divImpressao', { static: false }) divView: ElementRef;
 
   ngOnInit(): void {
     this.quizId = this.route.snapshot.params.optional_id;
@@ -48,6 +50,35 @@ export class RespostaComponent implements OnInit {
   }
 
   //Implementar metodo para gerar pdf...
+  exportPdf() {
+    this.presentLoadingWithOptions('Preparando PDF...');
+    const divToPdf = this.divView.nativeElement.innerHTML;
+    const options = { background: "white", height: divToPdf.clientWidth, width: divToPdf.clientHeight };
+
+    domtoimage.toPng(divToPdf, options).then((dataUrl) => {
+      var doc = new jsPDF("p", "mm", "a4");
+      //Add Url da imagem no PDF
+      doc.addImage(dataUrl, 'PNG', 20, 20, 240, 180);
+
+      let pdfOutput = doc.output();
+
+      //Para colocar a imagem dentro do PDF
+      let buffer = new ArrayBuffer(pdfOutput.length);
+      let array = new Uint8Array(buffer);
+      for (let i = 0; i < pdfOutput.length; i++) {
+        array[i] = pdfOutput.charCodeAt(i);
+      }
+
+      //Para armazenar o PDF
+      const directory = this.file.dataDirectory;
+      const fileName = "questionario.pdf";
+      let options: IWriteOptions = { replace: true };
+
+      this.file.checkFile(directory, fileName).then((sucess)=>{
+        console.log(sucess);
+      });
+    });
+  }
 
   private recuperarQuestionario(key: string) {
     this.questionarioRespostaView = new QuestionarioRespostaView();
