@@ -52,7 +52,8 @@ export class RespostaComponent implements OnInit {
   //Implementar metodo para gerar pdf...
   exportPdf() {
     this.presentLoadingWithOptions('Preparando PDF...');
-    const divToPdf = this.divView.nativeElement.innerHTML;
+    //const divToPdf = this.divView.nativeElement.innerHTML;
+    const divToPdf = document.getElementById('div-impressao');
     const options = { background: "white", height: divToPdf.clientWidth, width: divToPdf.clientHeight };
 
     domtoimage.toPng(divToPdf, options).then((dataUrl) => {
@@ -70,7 +71,7 @@ export class RespostaComponent implements OnInit {
       }
 
       //Para armazenar o PDF
-      const directory = this.file.dataDirectory;
+      const directory = 'assets/';
       const fileName = "questionario.pdf";
       let options: IWriteOptions = { replace: true };
 
