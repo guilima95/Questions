@@ -17,8 +17,8 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 })
 export class RespostaComponent implements OnInit {
   private quizId = null;
-  public questionarioRespostaView: QuestionarioRespostaView;
-  public totalScore: number = 0;
+  questionarioRespostaView: QuestionarioRespostaView;
+  totalScore: number = 0;
   loading: any;
 
   @ViewChild('divImpressao', { static: false }) divView: ElementRef;
@@ -71,12 +71,15 @@ export class RespostaComponent implements OnInit {
       }
 
       //Para armazenar o PDF
-      const directory = 'assets/';
+      const directory = this.file.dataDirectory;
       const fileName = "questionario.pdf";
       let options: IWriteOptions = { replace: true };
 
       this.file.checkFile(directory, fileName).then((sucess)=>{
-        console.log(sucess);
+        this.file.writeFile(directory,fileName,buffer, options).then(() =>{
+
+          this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
+        });
       });
     });
   }

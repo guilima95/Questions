@@ -18,10 +18,10 @@ enum tipoMensagem {
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
-  public formulario: FormGroup;
-  public parentescoArray: Array<string>;
-  public exibeNovoForm: boolean = false;
-  private formularioPaciente: FormularioModel;
+  formulario: FormGroup;
+  parentescoArray: Array<string>;
+  exibeNovoForm: boolean = false;
+  formularioPaciente: FormularioModel;
 
   ngOnInit(): void {
     this.criarValidacoes();

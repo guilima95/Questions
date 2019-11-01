@@ -8,7 +8,7 @@
 <ion-content padding>
   <div *ngIf="exibeNovoForm; else divForm">
     <ion-card color="light">
-      <ion-img src="/assets/background.png">
+      <ion-img src="../assets/background.png" mode="md">
         <ion-card-header>
         </ion-card-header>
       </ion-img>
@@ -71,14 +71,14 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <div class="validation-errors">
+      <!-- <div class="validation-errors">
         <ng-container *ngFor="let validation of validacoes_erros.parentesco">
           <div class="error-message"
             *ngIf="formulario.get('parentesco').hasError(validation.type) && (formulario.get('parentesco').dirty || formulario.get('parentesco').touched)">
             <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
           </div>
         </ng-container>
-      </div>
+      </div> -->
       <ion-item>
         <ion-label position="floating" color="black">Nasceu prematura</ion-label>
         <ion-select formControlName="prematuro" cancelText="Cancelar" okText="OK">
@@ -86,14 +86,14 @@
           <ion-select-option>Não</ion-select-option>
         </ion-select>
       </ion-item>
-      <div class="validation-errors">
+      <!-- <div class="validation-errors">
         <ng-container *ngFor="let validation of validacoes_erros.prematuro">
           <div class="error-message"
             *ngIf="formulario.get('prematuro').hasError(validation.type) && (formulario.get('prematuro').dirty || formulario.get('prematuro').touched)">
             <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
           </div>
         </ng-container>
-      </div>
+      </div> -->
       <ion-button color="primary" class="submit-btn" expand="full" type="submit" *ngIf="formulario.valid">Salvar
       </ion-button>
     </form>

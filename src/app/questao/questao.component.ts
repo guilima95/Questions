@@ -20,11 +20,11 @@ enum tipoMensagem {
 })
 export class QuestaoComponent implements OnInit {
   argumentos = null;
-  public quizList: Array<QuizModel>;
-  public questions: Array<QuestionModel>;
-  public disableAnswerList: number[];
-  private questionnaireAnswered: QuestionarioRespondido = new QuestionarioRespondido();
-  private quizId: number;
+  quizList: Array<QuizModel>;
+  questions: Array<QuestionModel>;
+  disableAnswerList: number[];
+  questionnaireAnswered: QuestionarioRespondido = new QuestionarioRespondido();
+  quizId: number;
 
   ngOnInit(): void {
     this.argumentos = this.route.snapshot.params.optional_id;

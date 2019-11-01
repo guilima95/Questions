@@ -14,9 +14,9 @@ export class ModalOptionPage implements OnInit {
   @Input() answerId: number;
   @Input() quizId: number;
 
-  private options: Array<OptionModel>;
-  private quizList: Array<QuizModel>;
-  private optionSelectedId: number;
+  options: Array<OptionModel>;
+  quizList: Array<QuizModel>;
+  optionSelectedId: number;
 
   constructor(private navParams: NavParams, public modalController: ModalController, private apiQuiz: QuizService) {
     this.quizList = new Array<QuizModel>();

@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { QuestaoComponent } from './questao.component';
-import { ModalOptionPage } from '../modal/modal-option/modal-option.page';
+//import { ModalOptionPage } from '../modal/modal-option/modal-option.page';
 
 const routes: Routes = [
     {
@@ -23,9 +23,9 @@ const routes: Routes = [
         IonicModule,        
         RouterModule.forChild(routes)
     ],
-    entryComponents:[
-        ModalOptionPage
-    ],
-    declarations: [QuestaoComponent, ModalOptionPage]
+    // entryComponents:[
+    //     ModalOptionPage
+    // ],
+    declarations: [QuestaoComponent]
 })
 export class QuestaoComponentModule { }
