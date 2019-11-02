@@ -11,9 +11,12 @@
 	</author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
+    <access launch-external="yes" origin="tel:*" />
+    <allow-navigation href="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
+    <allow-intent href="*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
