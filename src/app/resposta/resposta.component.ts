@@ -1,14 +1,16 @@
 import { ApiService } from './../api-service.service';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, Platform } from '@ionic/angular';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../app-quiz.service';
 import { QuestionarioRespondido } from '../models/questionarioRespondido.model';
 import { QuestionarioRespostaView } from '../models/questionarioRespostaView';
+import { Formulario } from '../models/formulario.model';
 import * as jsPDF from 'jspdf';
 import domtoimage from 'dom-to-image';
 import { File, IWriteOptions } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-resposta',
@@ -18,6 +20,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 export class RespostaComponent implements OnInit {
   private quizId = null;
   questionarioRespostaView: QuestionarioRespostaView;
+  formularioView: Formulario;
   totalScore: number = 0;
   loading: any;
 
@@ -26,11 +29,12 @@ export class RespostaComponent implements OnInit {
   ngOnInit(): void {
     this.quizId = this.route.snapshot.params.optional_id;
     if (this.quizId != null) {
+      this.recuperarDadosFormulario(this.api.KEY_FORMULARIO_PREENCHIDO);
       this.recuperarQuestionario(this.api.KEY_QUESTIONARIOS_RESPONDIDOS + this.quizId);
     }
   }
 
-  constructor(private navCtrl: NavController, private api: ApiService, private quizApi: QuizService,
+  constructor(private navCtrl: NavController, private plt: Platform, private api: ApiService, private quizApi: QuizService,
     private route: ActivatedRoute, private router: Router, private loadingController: LoadingController,
     private file: File, private fileOpener: FileOpener) { }
 
@@ -40,48 +44,101 @@ export class RespostaComponent implements OnInit {
   }
 
   async presentLoadingWithOptions(msg: string) {
-    const loading = await this.loadingController.create({
+    this.loading = await this.loadingController.create({
       spinner: null,
       message: msg,
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });
-    return await loading.present();
+    return await this.loading.present();
   }
 
   //Implementar metodo para gerar pdf...
   exportPdf() {
-    this.presentLoadingWithOptions('Preparando PDF...');
-    //const divToPdf = this.divView.nativeElement.innerHTML;
-    const divToPdf = document.getElementById('div-impressao');
-    const options = { background: "white", height: divToPdf.clientWidth, width: divToPdf.clientHeight };
+    if (this.plt.is('cordova')) {
+      this.presentLoadingWithOptions('Preparando PDF...');
+      //const divToPdf = this.divView.nativeElement.innerHTML;
+      const divToPdf = document.getElementById('div-impressao');
+      const options = { background: "white", width: divToPdf.clientWidth, heigth: divToPdf.clientHeight, quality: 1.0 };
+      console.log(divToPdf.clientWidth);
+      console.log(divToPdf.clientHeight);
 
-    domtoimage.toPng(divToPdf, options).then((dataUrl) => {
-      var doc = new jsPDF("p", "mm", "a4");
-      //Add Url da imagem no PDF
-      doc.addImage(dataUrl, 'PNG', 20, 20, 240, 180);
+      // domtoimage.toPng(divToPdf, options).then((dataUrl) => {
+      //   var doc = new jsPDF("p", "mm", "a4");
 
-      let pdfOutput = doc.output();
+      //   //Add Url da imagem no PDF
+      //   doc.addImage(dataUrl, 'PNG', 5, 5, 215, 285);
 
-      //Para colocar a imagem dentro do PDF
-      let buffer = new ArrayBuffer(pdfOutput.length);
-      let array = new Uint8Array(buffer);
-      for (let i = 0; i < pdfOutput.length; i++) {
-        array[i] = pdfOutput.charCodeAt(i);
-      }
+      //   let pdfOutput = doc.output();
 
-      //Para armazenar o PDF
-      const directory = this.file.dataDirectory;
-      const fileName = "questionario.pdf";
-      let options: IWriteOptions = { replace: true };
+      //   //Para colocar a imagem dentro do PDF
+      //   let buffer = new ArrayBuffer(pdfOutput.length);
+      //   let array = new Uint8Array(buffer);
+      //   for (let i = 0; i < pdfOutput.length; i++) {
+      //     array[i] = pdfOutput.charCodeAt(i);
+      //   }
 
-      this.file.checkFile(directory, fileName).then((sucess)=>{
-        this.file.writeFile(directory,fileName,buffer, options).then(() =>{
+      //   //Para armazenar o PDF
+      //   const directory = this.file.dataDirectory;
+      //   const fileName = "questionario.pdf";
+      //   let options: IWriteOptions = { replace: true };
 
-          this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
-        });
+      //   this.file.checkDir(directory, 'PDF').then(() => {
+      //     this.file.writeFile(directory + 'PDF/', fileName, buffer, options).then((data) => {
+      //       this.fileOpener.open(directory + 'PDF/' + fileName, 'application/pdf').then(_ => {
+      //         this.loading.dismiss();
+      //       });
+      //     });
+      //   })
+      //     .catch(error => {
+      //       this.file.createDir(directory, 'PDF', false).then(result => {
+      //         this.file.writeFile(directory + 'PDF/', fileName, buffer, options).then((data) => {
+      //           this.fileOpener.open(directory + 'PDF/' + fileName, 'application/pdf').then(_ => {
+      //             this.loading.dismiss();
+      //           });
+      //         });
+      //       });
+      //     });
+      // });
+
+      domtoimage.toJpeg(divToPdf, options).then((dataUrl) => {
+        var doc = new jsPDF("p", "mm", "a4");
+
+        //Add Url da imagem no PDF
+        doc.addImage(dataUrl, 'Jpeg', 5, 5, 215, 285);
+
+        let pdfOutput = doc.output();
+
+        //Para colocar a imagem dentro do PDF
+        let buffer = new ArrayBuffer(pdfOutput.length);
+        let array = new Uint8Array(buffer);
+        for (let i = 0; i < pdfOutput.length; i++) {
+          array[i] = pdfOutput.charCodeAt(i);
+        }
+
+        //Para armazenar o PDF
+        const directory = this.file.dataDirectory;
+        const fileName = "questionario.pdf";
+        let options: IWriteOptions = { replace: true };
+
+        this.file.checkDir(directory, 'PDF').then(() => {
+          this.file.writeFile(directory + 'PDF/', fileName, buffer, options).then((data) => {
+            this.fileOpener.open(directory + 'PDF/' + fileName, 'application/pdf').then(_ => {
+              this.loading.dismiss();
+            });
+          });
+        })
+          .catch(error => {
+            this.file.createDir(directory, 'PDF', false).then(result => {
+              this.file.writeFile(directory + 'PDF/', fileName, buffer, options).then((data) => {
+                this.fileOpener.open(directory + 'PDF/' + fileName, 'application/pdf').then(_ => {
+                  this.loading.dismiss();
+                });
+              });
+            });
+          });
       });
-    });
+    }
   }
 
   private recuperarQuestionario(key: string) {
@@ -140,6 +197,14 @@ export class RespostaComponent implements OnInit {
       });
     }).catch((err) => {
       console.log(err);
+    });
+  }
+
+  private recuperarDadosFormulario(key: string) {
+    this.formularioView = new Formulario();
+
+    this.api.recuperar(key).then((formulario) => {
+      this.formularioView = JSON.parse(formulario);
     });
   }
 }
