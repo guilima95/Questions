@@ -23,6 +23,7 @@ export class RespostaComponent implements OnInit {
   formularioView: Formulario;
   totalScore: number = 0;
   loading: any;
+  dataHoje: Date = new Date();
 
   @ViewChild('divImpressao', { static: false }) divView: ElementRef;
 
@@ -62,44 +63,6 @@ export class RespostaComponent implements OnInit {
       const options = { background: "white", width: divToPdf.clientWidth, heigth: divToPdf.clientHeight, quality: 1.0 };
       console.log(divToPdf.clientWidth);
       console.log(divToPdf.clientHeight);
-
-      // domtoimage.toPng(divToPdf, options).then((dataUrl) => {
-      //   var doc = new jsPDF("p", "mm", "a4");
-
-      //   //Add Url da imagem no PDF
-      //   doc.addImage(dataUrl, 'PNG', 5, 5, 215, 285);
-
-      //   let pdfOutput = doc.output();
-
-      //   //Para colocar a imagem dentro do PDF
-      //   let buffer = new ArrayBuffer(pdfOutput.length);
-      //   let array = new Uint8Array(buffer);
-      //   for (let i = 0; i < pdfOutput.length; i++) {
-      //     array[i] = pdfOutput.charCodeAt(i);
-      //   }
-
-      //   //Para armazenar o PDF
-      //   const directory = this.file.dataDirectory;
-      //   const fileName = "questionario.pdf";
-      //   let options: IWriteOptions = { replace: true };
-
-      //   this.file.checkDir(directory, 'PDF').then(() => {
-      //     this.file.writeFile(directory + 'PDF/', fileName, buffer, options).then((data) => {
-      //       this.fileOpener.open(directory + 'PDF/' + fileName, 'application/pdf').then(_ => {
-      //         this.loading.dismiss();
-      //       });
-      //     });
-      //   })
-      //     .catch(error => {
-      //       this.file.createDir(directory, 'PDF', false).then(result => {
-      //         this.file.writeFile(directory + 'PDF/', fileName, buffer, options).then((data) => {
-      //           this.fileOpener.open(directory + 'PDF/' + fileName, 'application/pdf').then(_ => {
-      //             this.loading.dismiss();
-      //           });
-      //         });
-      //       });
-      //     });
-      // });
 
       domtoimage.toJpeg(divToPdf, options).then((dataUrl) => {
         var doc = new jsPDF("p", "mm", "a4");

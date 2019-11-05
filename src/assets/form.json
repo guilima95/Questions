@@ -13,7 +13,7 @@
             "respostas": [
               {
                 "id": 1,
-                "descricao": "Lança uma bola de maneira controlada e precisa",
+                "descricao": "É capaz de jogar uma bola grande (tamanho de futebol) para outra criança ou pessoa.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -50,7 +50,7 @@
               },
               {
                 "id": 2,
-                "descricao": "Agarra uma bola pequena (por exemplo, do tamanho de uma bola de tênis) lançada de uma distância de cerca de 2 metros.",
+                "descricao": "Agarra uma bola grande (tamanho de futebol) com as duas mãos, quando jogada em sua direção, na frente do seu corpo, de uma distância de 1,5 m.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -87,7 +87,7 @@
               },
               {
                 "id": 3,
-                "descricao": "Se sai tão bem em esportes de equipe (como futebol e queimada) quanto em esportes individuais (como natação e skate), porque suas habilidades motoras são boas o suficiente para participar bem de um time.",
+                "descricao": "Chuta uma bola rolada em sua direção, de maneira apropriada para a idade (você chuta e ela chuta de volta).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -124,7 +124,7 @@
               },
               {
                 "id": 4,
-                "descricao": "Salta facilmente por cima de obstáculos encontrados no quintal, parque ou no ambiente onde brinca",
+                "descricao": "Corre rapidamente e de maneira semelhante a outras crianças.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -161,7 +161,7 @@
               },
               {
                 "id": 5,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de se mover de um lugar para outro ou de uma posição para outra como as crianças de sua idade (por exemplo, sobe e desce escadas, sobe e desce da cama, entra e sai da banheira/bacia ou piscina infantil de forma independente e com facilidade, brinca de dança das cadeiras).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -198,7 +198,7 @@
               },
               {
                 "id": 6,
-                "descricao": "Falta o texto...",
+                "descricao": "Bebe de um copo/caneca sem tampa sem derramar o conteúdo, de maneira apropriada para a idade.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -235,7 +235,7 @@
               },
               {
                 "id": 7,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de usar talheres para se alimentar (colher, garfo) e usa os talheres como outras crianças de sua idade (capaz de levar a comida para a boca).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -272,7 +272,7 @@
               },
               {
                 "id": 8,
-                "descricao": "Falta o texto...",
+                "descricao": "Segura um lápis/caneta (lápis, lápis de cor, giz de cera) como outras crianças de sua idade e o utiliza para riscar/rabiscar.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -309,7 +309,7 @@
               },
               {
                 "id": 9,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de colocar uma moeda no cofre.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -346,7 +346,7 @@
               },
               {
                 "id": 10,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de pegar uma figura já recortada, ou adesivo, e colá-la num lugar específico em uma folha de papel.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -383,7 +383,7 @@
               },
               {
                 "id": 11,
-                "descricao": "Falta o texto...",
+                "descricao": "Consegue fazer jogos de montagem de maneira apropriada para a idade (quebra-cabeças, Lego, construir uma torre ou imitar uma construção com blocos/toquinhos de madeira).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -420,7 +420,7 @@
               },
               {
                 "id": 12,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de imitar as posições do corpo de outra pessoa durante atividades de movimento ou esportivas (Macaco Disse, Siga o mestre, dança imitando alguém).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -457,7 +457,7 @@
               },
               {
                 "id": 13,
-                "descricao": "Falta o texto...",
+                "descricao": "Usa os brinquedos do parquinho/playground de maneira apropriada para a idade (escala brinquedo, desce no escorregador).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -494,7 +494,7 @@
               },
               {
                 "id": 14,
-                "descricao": "Falta o texto...",
+                "descricao": "Parece ter boa coordenação motora (não cai muito, não tropeça, nem tromba ou esbarra em pessoas e objetos).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -531,7 +531,7 @@
               },
               {
                 "id": 15,
-                "descricao": "Falta o texto...",
+                "descricao": "Permanece sentada com boa postura quando precisa ficar sentada por um período de tempo (não se cansa facilmente nem senta desajeitada como se estivesse escorregando da cadeira).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -583,7 +583,7 @@
             "respostas": [
               {
                 "id": 1,
-                "descricao": "Lança uma bola de maneira controlada e precisa",
+                "descricao": "É capaz de jogar uma bola grande (tamanho de futebol) para outra criança ou pessoa.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -620,7 +620,7 @@
               },
               {
                 "id": 2,
-                "descricao": "Agarra uma bola pequena (por exemplo, do tamanho de uma bola de tênis) lançada de uma distância de cerca de 2 metros.",
+                "descricao": "Agarra uma bola grande (tamanho de futebol) com as duas mãos, quando jogada em sua direção, na frente do seu corpo, de uma distância de 2 m.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -657,7 +657,7 @@
               },
               {
                 "id": 3,
-                "descricao": "Se sai tão bem em esportes de equipe (como futebol e queimada) quanto em esportes individuais (como natação e skate), porque suas habilidades motoras são boas o suficiente para participar bem de um time.",
+                "descricao": "Chuta uma bola rolada em sua direção, de maneira apropriada para a idade (você chuta e ela chuta de volta).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -694,7 +694,7 @@
               },
               {
                 "id": 4,
-                "descricao": "Salta facilmente por cima de obstáculos encontrados no quintal, parque ou no ambiente onde brinca",
+                "descricao": "Corre rapidamente e de maneira semelhante a outras crianças.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -731,7 +731,7 @@
               },
               {
                 "id": 5,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de se mover de um lugar para outro ou de uma posição para outra como as crianças de sua idade (por exemplo, sobe e desce escadas, sobe e desce da cama, entra e sai da banheira/bacia ou piscina infantil de forma independente e com facilidade, brinca de dança das cadeiras).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -768,7 +768,7 @@
               },
               {
                 "id": 6,
-                "descricao": "Falta o texto...",
+                "descricao": "Bebe de um copo/caneca sem tampa sem derramar o conteúdo, de maneira apropriada para a idade.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -805,7 +805,7 @@
               },
               {
                 "id": 7,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de usar talheres para se alimentar (colher, garfo) e usa os talheres como outras crianças de sua idade (capaz de levar a comida para a boca).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -842,7 +842,7 @@
               },
               {
                 "id": 8,
-                "descricao": "Falta o texto...",
+                "descricao": "Segura um lápis/caneta (lápis, lápis de cor, giz de cera) como outras crianças de sua idade e o utiliza para copiar linhas e formas simples.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -879,7 +879,7 @@
               },
               {
                 "id": 9,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de colocar uma moeda no cofre.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -916,7 +916,7 @@
               },
               {
                 "id": 10,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de pegar uma figura, já recortada, ou adesivo e colá-la num lugar específico em uma folha de papel.",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -953,7 +953,7 @@
               },
               {
                 "id": 11,
-                "descricao": "Falta o texto...",
+                "descricao": "Consegue fazer jogos de montagem de maneira apropriada para a idade (quebra-cabeças, Lego, construir uma torre ou imitar uma construção com blocos/toquinhos de madeira).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -990,7 +990,7 @@
               },
               {
                 "id": 12,
-                "descricao": "Falta o texto...",
+                "descricao": "É capaz de imitar as posições do corpo de outra pessoa durante atividades de movimento ou esportivas (Macaco Disse, Siga o mestre, dança imitando alguém).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -1027,7 +1027,7 @@
               },
               {
                 "id": 13,
-                "descricao": "Falta o texto...",
+                "descricao": "Usa os brinquedos do parquinho/playground de maneira apropriada para a idade (escala brinquedo, desce no escorregador).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -1064,7 +1064,7 @@
               },
               {
                 "id": 14,
-                "descricao": "Falta o texto...",
+                "descricao": "Parece ter boa coordenação motora (não cai muito, não tropeça, nem tromba ou esbarra em pessoas e objetos).",
                 "respondida": false,
                 "opcoes": [
                   {
@@ -1101,7 +1101,7 @@
               },
               {
                 "id": 15,
-                "descricao": "Falta o texto...",
+                "descricao": "Permanece sentada com boa postura quando precisa ficar sentada por um período de tempo (não se cansa facilmente nem senta desajeitada como se estivesse escorregando da cadeira).",
                 "respondida": false,
                 "opcoes": [
                   {

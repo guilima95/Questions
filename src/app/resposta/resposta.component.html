@@ -17,15 +17,21 @@
         <ion-title class="titleT" text-center>DCDQ Little</ion-title>
       </ion-item>
       <ion-item>
+        <ion-label color="dark" lines="none">Data: {{dataHoje | date: 'dd/MM/yyyy'}}
+        </ion-label>
+      </ion-item>
+      <ion-item>
         <ion-label class="ion-text-wrap" color="dark" lines="none">Responsável: {{formularioView.nomeResponsavel}}
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-label class="ion-text-wrap" color="dark" lines="none">Parentesco: {{formularioView.parentesco}}   Prematuro: {{formularioView.prematuro}}</ion-label>
-        <!-- <ion-label color="dark" lines="none">Prematuro: {{formularioView.prematuro}}</ion-label> -->
+        <ion-label class="ion-text-wrap" color="dark" lines="none">Parentesco: {{formularioView.parentesco}}   |   Prematuro: {{formularioView.prematuro}}</ion-label>
       </ion-item>
       <ion-item>
         <ion-label class="ion-text-wrap" color="dark" lines="none">Criança: {{formularioView.nomeCrianca}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap" color="dark" lines="none">Prematuro: {{formularioView.prematuro}}</ion-label>
       </ion-item>
       <ion-item>
         <ion-label color="dark" lines="none">Nascimento: {{formularioView.dataNascimento | date: 'dd/MM/yyyy'}}
